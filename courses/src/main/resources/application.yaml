@@ -1,0 +1,24 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /ecommerce
+
+# Connect string Database
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/ecommerce"
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+jwt:
+  signerKey: "uroJEVVfoCEYPdKfIiIF5yRWcw7EgE1bfCoz2cDc28du8fJ+/gwSL13DuIVx51RH"
+  valid-duration: 360000 # in second
+  refreshable-duration: 3600000 # in second
+
+
+
