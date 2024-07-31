@@ -32,6 +32,9 @@ public class UserEntity {
     @Column(name = "PASSWORD", nullable = false)
     String password;
 
+    @Column(name = "PHONE_NUMBER", nullable = false)
+    String phone_number;
+
     @Column(name = "BIRTHDAY")
     Date birthday;
 

@@ -24,6 +24,7 @@ public class ApplicationInitConfig {
                         .password(passwordEncoder.encode("12345678"))
                         .email("admin@course.com")
                         .full_name("admin")
+                        .phone_number("")
                         .roles(new HashSet<>() {{
                             add(roleAdmin);
                         }})

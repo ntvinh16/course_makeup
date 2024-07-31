@@ -42,7 +42,7 @@ public enum ErrorCode {
     USER_NOT_DELETE(20325, "You can't delete this user", HttpStatus.BAD_REQUEST),
 
     //Category
-    CATEGORY_EXISTED(20401, "Category already existed", HttpStatus.BAD_REQUEST),
+    CATEGORY_EXISTED(20401, "Category code already existed", HttpStatus.BAD_REQUEST),
     CATEGORY_FALSE(20403, "Category unsuccessful", HttpStatus.NOT_FOUND),
     CATEGORY_NOT_EXISTED(20405, "Category not existed", HttpStatus.NOT_FOUND),
     CATEGORY_NAME_INVALID(20407, "Category name at most 255 characters", HttpStatus.BAD_REQUEST),

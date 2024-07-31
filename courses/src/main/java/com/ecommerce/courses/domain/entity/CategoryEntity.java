@@ -16,10 +16,11 @@ import java.util.UUID;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "CATEGORY_ID")
-    UUID category_id;
+    UUID categoryId;
 
     @Column(name = "NAME", nullable = false, unique = true)
     String name;
@@ -28,17 +29,9 @@ public class CategoryEntity {
     String content;
 
     @Column(name = "CATEGORY_CODE", nullable = false, unique = true)
-    String category_code;
+    String categoryCode;
 
     @Column(name = "PARENT_CATEGORY_CODE")
-    String parent_category_code;
+    String parentCategoryCode;
 
-    @OneToMany(mappedBy = "parent",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    Set<CategoryEntity> child_categories = new HashSet<>();
-
-    @ManyToOne
-    @JoinColumn(name = "PARENT_CATEGORY_CODE", insertable = false, updatable = false)
-    CategoryEntity parent;
 }

@@ -15,11 +15,10 @@ import java.util.UUID;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryResponse {
-    UUID category_id;
+    UUID categoryId;
     String name;
     String content;
-    String category_code;
-    String parent_category_code;
-    Set<CategoryResponse> child_categories = new HashSet<>();
-    CategoryResponse parent;
+    String categoryCode;
+    String parentCategoryCode;
+    Set<CategoryResponse> childCategories = new HashSet<>();
 }
