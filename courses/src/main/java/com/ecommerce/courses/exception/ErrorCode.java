@@ -40,6 +40,8 @@ public enum ErrorCode {
     ROLES_NOT_EMPTY(20321, "Roles don't empty", HttpStatus.BAD_REQUEST),
     INVALID_DOB(20323, "Your age must be at least {min}", HttpStatus.BAD_REQUEST),
     USER_NOT_DELETE(20325, "You can't delete this user", HttpStatus.BAD_REQUEST),
+    FULL_NAME_NOT_EMPTY(20327, "Full name don't empty", HttpStatus.BAD_REQUEST),
+    PHONE_NUMBER_NOT_EMPTY(20329, "Phone number don't empty", HttpStatus.BAD_REQUEST),
 
     //Category
     CATEGORY_EXISTED(20401, "Category code already existed", HttpStatus.BAD_REQUEST),
@@ -49,7 +51,36 @@ public enum ErrorCode {
     CATEGORY_NAME_NOT_EMPTY(20409, "Category name don't empty", HttpStatus.BAD_REQUEST),
     CATEGORY_CODE_INVALID(20411, "Category code at most 50 characters", HttpStatus.BAD_REQUEST),
     CATEGORY_CODE_NOT_EMPTY(20413, "Category code don't empty", HttpStatus.BAD_REQUEST),
+    CATEGORY_CODE_IS_PARENT(20415, "Category has child can't delete", HttpStatus.BAD_REQUEST),
 
+    //Lesson
+    LESSON_EXISTED(20501, "Lesson already existed", HttpStatus.BAD_REQUEST),
+    LESSON_NOT_EXISTED(20503, "Lesson not existed", HttpStatus.NOT_FOUND),
+    LESSON_TITLE_INVALID(20505, "Lesson title at most 255 characters", HttpStatus.BAD_REQUEST),
+    LESSON_TITLE_NOT_EMPTY(20507, "Lesson title don't empty", HttpStatus.BAD_REQUEST),
+    LESSON_DESCRIPTION_INVALID(2059, "Lesson description at most 255 characters", HttpStatus.BAD_REQUEST),
+    LESSON_DESCRIPTION_NOT_EMPTY(20511, "Lesson description don't empty", HttpStatus.BAD_REQUEST),
+
+    //Class
+    CLASS_EXISTED(20601, "Class already existed", HttpStatus.BAD_REQUEST),
+    CLASS_FALSE(20603, "Class unsuccessful", HttpStatus.NOT_FOUND),
+    CLASS_NOT_EXISTED(20605, "Class not existed", HttpStatus.NOT_FOUND),
+    CLASS_TITLE_INVALID(20607, "Class title at most 255 characters", HttpStatus.BAD_REQUEST),
+    CLASS_TITLE_NOT_EMPTY(20609, "Class title don't empty", HttpStatus.BAD_REQUEST),
+    CLASS_CODE_INVALID(20611, "Class code at most 50 characters", HttpStatus.BAD_REQUEST),
+    CLASS_CODE_NOT_EMPTY(20613, "Class code don't empty", HttpStatus.BAD_REQUEST),
+
+    //Course
+    COURSE_EXISTED(20701, "Course already existed", HttpStatus.BAD_REQUEST),
+    COURSE_NOT_EXISTED(20703, "Course not existed", HttpStatus.NOT_FOUND),
+    COURSE_TITLE_INVALID(20705, "Course title at most 255 characters", HttpStatus.BAD_REQUEST),
+    COURSE_TITLE_NOT_EMPTY(20707, "Course title don't empty", HttpStatus.BAD_REQUEST),
+    COURSE_CODE_INVALID(2079, "Course code at most 50 characters", HttpStatus.BAD_REQUEST),
+    COURSE_CODE_NOT_EMPTY(20711, "Course code don't empty", HttpStatus.BAD_REQUEST),
+
+    //Enrollment
+    ENROLLMENT_EXISTED(20801, "Enrollment already existed", HttpStatus.BAD_REQUEST),
+    ENROLLMENT_NOT_EXISTED(20803, "Enrollment not existed", HttpStatus.NOT_FOUND),
 
     ;
 

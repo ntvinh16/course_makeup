@@ -19,6 +19,6 @@ public class CategoryUpdateRequest {
     String name;
     String content;
 
-    String category_code;
-    String parent_category_code;
+    String categoryCode;
+    String parentCategoryCode;
 }

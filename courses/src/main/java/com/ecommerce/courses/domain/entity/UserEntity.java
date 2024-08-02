@@ -1,7 +1,6 @@
 package com.ecommerce.courses.domain.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -21,7 +20,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "USER_ID")
-    UUID user_id;
+    UUID userId;
 
     @Column(name = "USERNAME", nullable = false)
     String username;
@@ -33,16 +32,16 @@ public class UserEntity {
     String password;
 
     @Column(name = "PHONE_NUMBER", nullable = false)
-    String phone_number;
+    String phoneNumber;
 
     @Column(name = "BIRTHDAY")
     Date birthday;
 
     @Column(name = "FULL_NAME", nullable = false)
-    String full_name;
+    String fullName;
 
     @Column(name = "CREATE_AT")
-    Date create_at = Date.valueOf(LocalDate.now());
+    Date createAt = Date.valueOf(LocalDate.now());
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

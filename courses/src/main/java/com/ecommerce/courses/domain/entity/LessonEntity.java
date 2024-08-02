@@ -6,22 +6,20 @@ import lombok.experimental.FieldDefaults;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Data
-@Table(name = "COURSES")
+@Table(name = "LESSONS")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CourseEntity {
+public class LessonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "COURSE_ID")
-    UUID courseId;
+    @Column(name = "LESSON_ID")
+    UUID lessonId;
 
     @Column(name = "TITLE", nullable = false)
     String title;
@@ -29,6 +27,17 @@ public class CourseEntity {
     @Column(name = "DESCRIPTION", nullable = false)
     String description;
 
+    @Column(name = "MAIN_VIDEO_URL")
+    String mainVideoUrl;
+
+    @Column(name = "IMAGE_URL")
+    String imageUrl;
+
+    @Column(name = "TIME")
+    Integer time;
+
+    @Column(name = "ORDER_LESSON")
+    Integer orderLesson;
 
     @Column(name = "CREATE_AT")
     Date createAt = Date.valueOf(LocalDate.now());
@@ -36,12 +45,4 @@ public class CourseEntity {
     @Column(name = "UPDATE_AT")
     Date updateAt;
 
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "COURSE_CLASSES",
-            joinColumns = @JoinColumn(name = "COURSE_ID"),
-            inverseJoinColumns = @JoinColumn(name = "CLASS_ID")
-    )
-    Set<ClassEntity> classes = new HashSet<>();
 }

@@ -27,15 +27,15 @@ public class PermissionService implements IPermissionService {
     ModelMapper mapper;
 
     public boolean save(PermissionRequest request) {
-            var checkPermission = permissionRepository.findByName(request.getName());
-            if(checkPermission != null){
-                throw new AppException(ErrorCode.PERMISSION_EXISTED);
-            }
+        var checkPermission = permissionRepository.findByName(request.getName());
+        if (checkPermission != null) {
+            throw new AppException(ErrorCode.PERMISSION_EXISTED);
+        }
 
-            PermissionEntity permissionEntity = mapper.map(request, PermissionEntity.class);
-            permissionRepository.save(permissionEntity);
+        PermissionEntity permissionEntity = mapper.map(request, PermissionEntity.class);
+        permissionRepository.save(permissionEntity);
 
-            return true;
+        return true;
     }
 
     @PreAuthorize("hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_ADMIN.name())" +
@@ -49,14 +49,25 @@ public class PermissionService implements IPermissionService {
         return new PagedList<>(page, size, content, total);
     }
 
+    @PreAuthorize("hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_ADMIN.name())" +
+            "|| hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_MANAGER.name())")
+    public PermissionResponse findById(String id) {
+        var permission = permissionRepository.findById(convertStringToUUID(id));
+        if (permission.isEmpty())
+            throw new AppException(ErrorCode.PERMISSION_NOT_EXISTED);
+
+
+        return mapper.map(permission.get(), PermissionResponse.class);
+    }
+
     @PreAuthorize("hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_ADMIN.name())")
     public boolean delete(String id) {
-        var checkPermission = permissionRepository.findById(convertStringToUUID(id));
-        if(checkPermission.isEmpty()){
+        var permission = permissionRepository.findById(convertStringToUUID(id));
+        if (permission.isEmpty())
             throw new AppException(ErrorCode.PERMISSION_NOT_EXISTED);
-        }
 
-        permissionRepository.delete(checkPermission.get());
+
+        permissionRepository.delete(permission.get());
         return true;
 
     }

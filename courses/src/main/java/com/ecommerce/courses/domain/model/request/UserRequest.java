@@ -34,9 +34,11 @@ public class UserRequest {
     @BirthdayConstraint(min = 18, message = "INVALID_DOB")
     Date birthday;
 
-    @NotEmpty(message = "PASSWORD_NOT_EMPTY")
-    String full_name;
+    @NotEmpty(message = "FULL_NAME_NOT_EMPTY")
+    String fullName;
 
-    @NotEmpty(message = "ROLES_NOT_EMPTY")
+    @NotEmpty(message = "PHONE_NUMBER_NOT_EMPTY")
+    String phoneNumber;
+
     Set<UUID> roles;
 }

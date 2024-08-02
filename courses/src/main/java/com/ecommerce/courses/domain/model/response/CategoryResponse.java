@@ -1,7 +1,5 @@
 package com.ecommerce.courses.domain.model.response;
 
-import com.ecommerce.courses.domain.entity.CategoryEntity;
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

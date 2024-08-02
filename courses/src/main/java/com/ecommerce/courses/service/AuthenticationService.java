@@ -102,8 +102,8 @@ public class AuthenticationService implements IAuthenticationService {
         Date expirationTime = signToken.getJWTClaimsSet().getExpirationTime();
 
         InvalidatedToken invalidatedToken = InvalidatedToken.builder()
-                .token_id(UUID.fromString(jit))
-                .expiry_time(expirationTime)
+                .tokenId(UUID.fromString(jit))
+                .expiryTime(expirationTime)
                 .build();
 
         invalidatedTokenRepository.save(invalidatedToken);
@@ -118,8 +118,8 @@ public class AuthenticationService implements IAuthenticationService {
         Date expirationTime = signToken.getJWTClaimsSet().getExpirationTime();
 
         InvalidatedToken invalidatedToken = InvalidatedToken.builder()
-                .token_id(UUID.fromString(jit))
-                .expiry_time(expirationTime)
+                .tokenId(UUID.fromString(jit))
+                .expiryTime(expirationTime)
                 .build();
 
         invalidatedTokenRepository.save(invalidatedToken);
@@ -194,7 +194,7 @@ public class AuthenticationService implements IAuthenticationService {
 
         if (!CollectionUtils.isEmpty(user.getRoles())) {
             user.getRoles().forEach(role -> {
-                stringJoiner.add("ROLE_" + role.getName());
+                stringJoiner.add(role.getName());
                 if (!CollectionUtils.isEmpty(role.getPermissions()))
                     role.getPermissions().forEach(permission -> stringJoiner.add(permission.getName()));
             });

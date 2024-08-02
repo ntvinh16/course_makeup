@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/permissions")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class PermisionController {
+public class PermissionController {
 
     @Autowired
     IPermissionService permissionService;
@@ -39,6 +39,16 @@ public class PermisionController {
         return ApiResponse.<PagedList<PermissionResponse>>builder()
                 .code(PermissionMessageEnum.FIND_ALL_SUCCESS.getCode())
                 .message(PermissionMessageEnum.FIND_ALL_SUCCESS.getMessage())
+                .result(result)
+                .build();
+    }
+
+    @GetMapping("{id}")
+    ApiResponse<PermissionResponse> findById(@PathVariable(value = "id") String id) {
+        var result = permissionService.findById(id);
+        return ApiResponse.<PermissionResponse>builder()
+                .code(PermissionMessageEnum.FIND_BY_ID_SUCCESS.getCode())
+                .message(PermissionMessageEnum.FIND_BY_ID_SUCCESS.getMessage())
                 .result(result)
                 .build();
     }

@@ -11,6 +11,7 @@ import java.util.UUID;
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, UUID> {
     CategoryEntity findByCategoryCode(String categoryCode);
-    List<CategoryEntity> findAllByParentCategoryCode(String parentCategoryCode);
+    List<CategoryEntity> findAllByParentCategoryCode(String parentCategoryCode, Sort sort);
     List<CategoryEntity> findByParentCategoryCodeIsNull(Sort sort);
+    long countByParentCategoryCode(String parentCategoryCode);
 }

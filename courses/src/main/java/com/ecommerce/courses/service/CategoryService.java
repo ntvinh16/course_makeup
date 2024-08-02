@@ -17,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -33,10 +34,11 @@ public class CategoryService implements ICategoryService {
 
     ModelMapper mapper;
 
-    @Override
+    @PreAuthorize("hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_ADMIN.name())" +
+            "|| hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_MANAGER.name())")
     public boolean save(CategoryRequest request) {
 
-        var category = categoryRepository.findByCategoryCode(request.getCategory_code());
+        var category = categoryRepository.findByCategoryCode(request.getCategoryCode());
         if (category != null)
             throw new AppException(ErrorCode.CATEGORY_EXISTED);
 
@@ -45,37 +47,54 @@ public class CategoryService implements ICategoryService {
         return true;
     }
 
-    @Override
+    @PreAuthorize("hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_ADMIN.name())" +
+            "|| hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_MANAGER.name())")
     public List<CategoryResponse> findAll() {
         var categoryParent = categoryRepository
                 .findByParentCategoryCodeIsNull(Sort.by(Sort.Direction.ASC, "categoryCode"));
 
         return categoryParent.stream().map(parent -> {
             var childCategories = categoryRepository
-                    .findAllByParentCategoryCode(parent.getCategoryCode())
+                    .findAllByParentCategoryCode(parent.getCategoryCode(), Sort.by(Sort.Direction.ASC, "categoryCode"))
                     .stream()
                     .map(child -> mapper.map(child, CategoryResponse.class))
                     .toList();
             var categoryResponse = mapper.map(parent, CategoryResponse.class);
-            categoryResponse.setChildCategories(new HashSet<>(childCategories));
+            categoryResponse.setChildCategories(new LinkedHashSet<>(childCategories));
             return categoryResponse;
 
         }).toList();
     }
 
-    @Override
+    @PreAuthorize("hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_ADMIN.name())" +
+            "|| hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_MANAGER.name())")
     public boolean delete(String id) {
-        return false;
+        var category = categoryRepository.findById(convertStringToUUID(id));
+        if (category.isEmpty())
+            throw  new AppException(ErrorCode.CATEGORY_NOT_EXISTED);
+
+        if(categoryRepository.countByParentCategoryCode(category.get().getCategoryCode()) > 0)
+            throw new AppException(ErrorCode.CATEGORY_CODE_IS_PARENT);
+
+        categoryRepository.delete(category.get());
+        return true;
     }
 
-    @Override
+    @PreAuthorize("hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_ADMIN.name())" +
+            "|| hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_MANAGER.name())")
     public boolean update(String id, CategoryUpdateRequest request) {
         Optional<CategoryEntity> category = categoryRepository.findById(convertStringToUUID(id)).stream().findFirst();
         if (category.isEmpty())
+            throw new AppException(ErrorCode.CATEGORY_NOT_EXISTED);
+
+        var categoryCode = categoryRepository.findByCategoryCode(request.getCategoryCode());
+        if(categoryCode != null)
             throw new AppException(ErrorCode.CATEGORY_EXISTED);
 
         request.setCategoryId(convertStringToUUID(id));
         var result = mapper.map(request, CategoryEntity.class);
+
+
         categoryRepository.save(result);
 
         return true;

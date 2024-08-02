@@ -20,8 +20,8 @@ import java.util.UUID;
 public class InvalidatedToken {
     @Id
     @Column(name = "TOKEN_ID")
-    UUID token_id;
+    UUID tokenId;
 
     @Column(name = "EXPIRY_TIME")
-    Date expiry_time;
+    Date expiryTime;
 }

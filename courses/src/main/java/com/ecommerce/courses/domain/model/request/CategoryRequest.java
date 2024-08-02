@@ -1,6 +1,5 @@
 package com.ecommerce.courses.domain.model.request;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -19,6 +18,6 @@ public class CategoryRequest {
 
     @Size(max = 50, message = "CATEGORY_CODE_INVALID")
     @NotEmpty(message = "CATEGORY_CODE_NOT_EMPTY")
-    String category_code;
-    String parent_category_code;
+    String categoryCode;
+    String parentCategoryCode;
 }

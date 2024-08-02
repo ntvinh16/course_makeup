@@ -10,7 +10,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PermissionResponse {
-    UUID permissionId;
-    String name;
+public class LessonResponse {
+    UUID lessonId;
+    String title;
+    String description;
+    String mainVideoUrl;
+    String imageUrl;
+    Integer time;
+    Integer orderLesson;
 }

@@ -7,5 +7,6 @@ import com.ecommerce.courses.domain.model.response.PermissionResponse;
 public interface IPermissionService {
     boolean save(PermissionRequest request);
     PagedList<PermissionResponse> findAll(Integer page, Integer size);
+    PermissionResponse findById(String id);
     boolean delete(String id);
 }

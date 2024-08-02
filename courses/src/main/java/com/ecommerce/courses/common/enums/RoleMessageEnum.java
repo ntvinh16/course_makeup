@@ -12,6 +12,7 @@ public enum RoleMessageEnum {
     UPDATE_SUCCESS(20202, "Update role success", HttpStatus.OK),
     DELETE_SUCCESS(20204, "Delete role success", HttpStatus.OK),
     FIND_ALL_SUCCESS(20206, "Find all roles success", HttpStatus.OK),
+    FIND_BY_ID_SUCCESS(20208, "Find role success", HttpStatus.OK),
 ;
     RoleMessageEnum(int code, String message, HttpStatus statusCode){
         this.code = code;

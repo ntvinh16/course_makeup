@@ -11,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RoleResponse {
-    UUID role_id;
+    UUID roleId;
     String name;
     String description;
     Set<PermissionResponse> permissions;

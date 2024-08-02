@@ -30,7 +30,7 @@ public class UserUpdateRequest {
     Date birthday;
 
     @NotEmpty(message = "PASSWORD_NOT_EMPTY")
-    String full_name;
+    String fullName;
 
     @NotEmpty(message = "ROLES_NOT_EMPTY")
     Set<UUID> roles;

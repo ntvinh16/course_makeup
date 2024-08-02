@@ -51,9 +51,9 @@ public class RoleService implements IRoleService {
     public boolean update(String id, RoleRequest request) {
         var checkRole = roleRepository.findById(convertStringToUUID(id));
 
-        if (checkRole.isEmpty()) {
+        if (checkRole.isEmpty())
             throw new AppException(ErrorCode.ROLE_NOT_EXISTED);
-        }
+
 
         request.setId(convertStringToUUID(id));
         var role = mapper.map(request, RoleEntity.class);
@@ -69,23 +69,35 @@ public class RoleService implements IRoleService {
     @PreAuthorize("hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_ADMIN.name())")
     public boolean delete(String id) {
         var checkRole = roleRepository.findById(convertStringToUUID(id));
-        if (checkRole.isEmpty()) {
+        if (checkRole.isEmpty())
             throw new AppException(ErrorCode.PERMISSION_NOT_EXISTED);
-        }
+
 
         roleRepository.delete(checkRole.get());
         return true;
 
     }
 
+    @Override
     @PreAuthorize("hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_ADMIN.name())" +
             "|| hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_MANAGER.name())")
-    public PagedList<RoleResponse> findAll(int page, int size) {
+    public PagedList<RoleResponse> findAll(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page - 1, size);
         var result = roleRepository.findAll(pageable);
         var content = result.getContent().stream().map(role -> mapper.map(role, RoleResponse.class)).toList();
         var total = result.getTotalElements();
 
         return new PagedList<>(page, size, content, total);
+    }
+
+
+    @PreAuthorize("hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_ADMIN.name())" +
+            "|| hasRole(T(com.ecommerce.courses.common.enums.roles.RoleEnum).ROLE_MANAGER.name())")
+    public RoleResponse findById(String id) {
+        var role = roleRepository.findById(convertStringToUUID(id));
+        if (role.isEmpty())
+            throw new AppException(ErrorCode.PERMISSION_NOT_EXISTED);
+
+        return mapper.map(role, RoleResponse.class);
     }
 }

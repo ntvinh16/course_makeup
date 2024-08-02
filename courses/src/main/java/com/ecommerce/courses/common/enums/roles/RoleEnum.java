@@ -8,8 +8,8 @@ import lombok.experimental.FieldDefaults;
 @Getter
 public enum RoleEnum {
     ROLE_ADMIN(1, "ROLE_ADMIN"),
-    ROLE_USER(2, "ROLE_USER"),
-    ROLE_MANAGER(3, "ROLE_MANAGER");
+    ROLE_MANAGER(2, "ROLE_MANAGER"),
+    ROLE_USER(3, "ROLE_USER");
     ;
 
     RoleEnum(int code, String message){

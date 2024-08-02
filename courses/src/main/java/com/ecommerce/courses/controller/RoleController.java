@@ -1,7 +1,9 @@
 package com.ecommerce.courses.controller;
 
+import com.ecommerce.courses.common.enums.PermissionMessageEnum;
 import com.ecommerce.courses.common.enums.RoleMessageEnum;
 import com.ecommerce.courses.domain.model.request.RoleRequest;
+import com.ecommerce.courses.domain.model.response.PermissionResponse;
 import com.ecommerce.courses.domain.model.response.common.ApiResponse;
 import com.ecommerce.courses.domain.model.response.common.PagedList;
 import com.ecommerce.courses.domain.model.response.RoleResponse;
@@ -26,6 +28,16 @@ public class RoleController {
         return ApiResponse.<PagedList<RoleResponse>>builder()
                 .code(RoleMessageEnum.FIND_ALL_SUCCESS.getCode())
                 .message(RoleMessageEnum.FIND_ALL_SUCCESS.getMessage())
+                .result(result)
+                .build();
+    }
+
+    @GetMapping("{id}")
+    ApiResponse<RoleResponse> findById(@PathVariable(value = "id") String id) {
+        var result = roleService.findById(id);
+        return ApiResponse.<RoleResponse>builder()
+                .code(RoleMessageEnum.FIND_BY_ID_SUCCESS.getCode())
+                .message(RoleMessageEnum.FIND_BY_ID_SUCCESS.getMessage())
                 .result(result)
                 .build();
     }

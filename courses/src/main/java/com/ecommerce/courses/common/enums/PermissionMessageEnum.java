@@ -9,8 +9,9 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum PermissionMessageEnum {
     CREATE_SUCCESS(20100, "Create permission success", HttpStatus.OK),
-    FIND_ALL_SUCCESS(20102, "Get all permission", HttpStatus.OK),
+    FIND_ALL_SUCCESS(20102, "Get all permission success", HttpStatus.OK),
     DELETE_SUCCESS(20104, "Delete permission success", HttpStatus.OK),
+    FIND_BY_ID_SUCCESS(20106, "Get permission success", HttpStatus.OK),
 
     ;
 

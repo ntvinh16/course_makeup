@@ -13,11 +13,11 @@ import java.util.UUID;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserResponse {
-    UUID user_id;
+    UUID userId;
     String username;
     String email;
-    String full_name;
+    String fullName;
     Date birthday;
-    Date create_at;
+    Date createAt;
     Set<RoleResponse> roles;
 }

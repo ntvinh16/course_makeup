@@ -1,5 +1,7 @@
 package com.ecommerce.courses.service;
 
+import com.ecommerce.courses.common.enums.roles.RoleEnum;
+import com.ecommerce.courses.domain.entity.RoleEntity;
 import com.ecommerce.courses.domain.entity.UserEntity;
 import com.ecommerce.courses.domain.model.request.UserRequest;
 import com.ecommerce.courses.domain.model.request.UserUpdateRequest;
@@ -50,8 +52,17 @@ public class UserService implements IUserService {
         var user = mapper.map(request, UserEntity.class);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        var roles = roleRepository.findAllById(request.getRoles());
-        user.setRoles(new HashSet<>(roles));
+        HashSet<RoleEntity> roles = new HashSet<>();
+        if(request.getRoles() != null) {
+            roles = new HashSet<>(roleRepository.findAllById(request.getRoles()));
+            user.setRoles(roles);
+        }
+        else {
+            var role = roleRepository.findByName(RoleEnum.ROLE_USER.name());
+            roles.add(role);
+            user.setRoles(roles);
+        }
+
 
         userRepositoy.save(user);
 
@@ -78,7 +89,7 @@ public class UserService implements IUserService {
         }
 
         var userUpdate = mapper.map(request, UserEntity.class);
-        userUpdate.setUser_id(convertStringToUUID(id));
+        userUpdate.setUserId(convertStringToUUID(id));
         userUpdate.setPassword(passwordEncoder.encode(request.getPassword()));
         userUpdate.setUsername(user.getUsername());
 

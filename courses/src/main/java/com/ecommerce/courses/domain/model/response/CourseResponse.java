@@ -3,6 +3,7 @@ package com.ecommerce.courses.domain.model.response;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -10,7 +11,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PermissionResponse {
-    UUID permissionId;
-    String name;
+public class CourseResponse {
+    UUID courseId;
+    String title;
+    String description;
+    Set<ClassResponse> classes;
 }
